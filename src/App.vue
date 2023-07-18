@@ -1,48 +1,45 @@
 <script setup>
-  const name = 'Vue dinámico'
-  const arrayFrutas = [
-        {
-            name: "Manzana",
-            price: "$1.00",
-            description: "Una manzana",
-        },
-        {
-            name: "Pera",
-            price: "$2.00",
-            description: "Una pera",
-        },
-        {
-            name: "Naranja",
-            price: "$3.00",
-            description: "Una naranja",
-        },
-    ];
+import {ref, computed} from 'vue';
+var name = "Franz Burneo";
+
+const counter = ref(0);
+const styleColor = ref('color: white');
+
+const increment = () => {
+  counter.value++;
+}
+const decrease = () => {
+  counter.value--;
+}
+const reset = () => {
+  counter.value = 0;
+}
+
+const classCounter = computed(() => {
+  return counter.value > 0 ? 'positive' :
+                            counter.value < 0 ? 'negative' : 'zero';
+})
 </script>
 <template>
-  <h1 class="title">Hola mundo desde {{name.toUpperCase()}}</h1>
-  <ul>
-    <li
-      v-for="fruta in arrayFrutas"
-      :key="fruta.name"
-    >
-      <h1 class="fruta-title">
-        Fruta: {{ fruta.name }}
-      </h1>
-      <h2>
-        Descripción: {{ fruta.description }}
-      </h2>
-      <h2>
-        Precio: {{ fruta.price }}
-      </h2>
-    </li>
-  </ul>
+  <h1> Hola {{ name.toUpperCase() }}</h1>
+  <h2 :class="classCounter">{{ counter }}</h2>
+  <button @click="increment">Incrementar</button>
+  <button @click="decrease">Disminuir</button>
+  <button @click="reset">Resetear</button>
 </template>
 
+
 <style>
-  .title{
-    color: red;
-  }
-  .fruta-title{
-    color: blue;
-  }
+h1{
+  color: brown;
+}
+.positive{
+  color: green;
+}
+.negative{
+  color: red;
+}
+.zero {
+  color: peru;
+}
 </style>
